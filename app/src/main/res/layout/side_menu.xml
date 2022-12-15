@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.menues.SideeingeklapptFragment"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="36dp"
+        android:src="@drawable/ic_baseline_arrow_right_24"
+        app:layout_constraintBottom_toBottomOf="@+id/übersichts"
+        app:layout_constraintEnd_toEndOf="@+id/übersichts"
+        app:layout_constraintTop_toTopOf="@+id/übersichts"
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_baseline_arrow_right_24"
+        app:layout_constraintBottom_toBottomOf="@+id/kategorie"
+        app:layout_constraintEnd_toEndOf="@+id/kategorie"
+        app:layout_constraintTop_toTopOf="@+id/kategorie"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_baseline_arrow_right_24"
+        app:layout_constraintBottom_toBottomOf="@+id/eintraege"
+        app:layout_constraintEnd_toEndOf="@+id/eintraege"
+        app:layout_constraintTop_toTopOf="@+id/eintraege"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/imageView6"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/ic_baseline_arrow_right_24"
+        app:layout_constraintBottom_toBottomOf="@+id/sparziel"
+        app:layout_constraintEnd_toEndOf="@+id/sparziel"
+        app:layout_constraintTop_toTopOf="@+id/sparziel"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/übersichts"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+
+        android:backgroundTint="#FFFFFF"
+        android:text="Übersicht"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/kategorie"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Kategorie"
+        android:textColor="#000000"
+        app:iconTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/imageView5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/übersichts" />
+
+    <Button
+        android:id="@+id/eintraege"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Einträge"
+        android:textColor="#000000"
+        app:iconTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/imageView6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/kategorie" />
+
+    <Button
+        android:id="@+id/sparziel"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Sparziel"
+        android:textColor="#000000"
+        app:iconTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/währungsrechner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eintraege" />
+
+    <Button
+        android:id="@+id/währungsrechner"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Währungsrechner"
+        android:textColor="#000000"
+        app:iconTint="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/statistik"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sparziel" />
+
+    <Button
+        android:id="@+id/statistik"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Statistik"
+        android:textColor="#000000"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/einstellungen"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/währungsrechner" />
+
+    <Button
+        android:id="@+id/einstellungen"
+        android:layout_width="200dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Einstellungen"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statistik" />
+
+    <Button
+        android:id="@+id/plusbtn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="115dp"
+        android:layout_height="160dp"
+        android:layout_marginBottom="52dp"
+        android:text="+"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="96sp"
+        android:textStyle="bold"
+        app:iconTint="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/minusbtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/minusbtn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="115dp"
+        android:layout_height="160dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="52dp"
+        android:text="-"
+        android:textColor="#000000"
+        android:textSize="96sp"
+        android:textStyle="bold"
+        app:iconTint="#000000"
+        app:iconTintMode="src_in"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="-" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
