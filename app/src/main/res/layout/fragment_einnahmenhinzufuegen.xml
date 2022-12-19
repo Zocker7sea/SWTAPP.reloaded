@@ -148,7 +148,7 @@
                 android:layout_height="70dp"
                 android:hint="10.50"
                 android:inputType="numberDecimal"
-                android:maxLength="50"
+                android:maxLength="39"
                 android:maxLines="1"
                 android:paddingTop="0dp"
                 android:selectAllOnFocus="false"

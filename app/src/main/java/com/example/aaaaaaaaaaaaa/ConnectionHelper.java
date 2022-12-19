@@ -43,11 +43,11 @@ public class ConnectionHelper extends SQLiteOpenHelper {
         }
     }
 
-//    public void clear() {
-//        SQLiteDatabase DB = this.getWritableDatabase();
-//        DB.execSQL(" Delete from Eintrag");
-//
-//    }
+    public void clear() {
+        SQLiteDatabase DB = this.getWritableDatabase();
+        DB.execSQL(" Delete from Eintrag");
+
+    }
 
     public boolean updateEintrag(String name, Float betrag, String date, String kategorie, String waehrung) {
         SQLiteDatabase DB = this.getWritableDatabase();

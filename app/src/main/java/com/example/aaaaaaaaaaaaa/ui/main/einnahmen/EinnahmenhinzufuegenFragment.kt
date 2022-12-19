@@ -3,6 +3,7 @@ package com.example.aaaaaaaaaaaaa.ui.main.einnahmen
 import android.content.Intent
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +28,14 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
         val waehrung : EditText = view.findViewById(R.id.texteditwaehrung)
         val DB : ConnectionHelper = ConnectionHelper(requireActivity())
         val insertbtn = view.findViewById<Button>(R.id.buttonsave)
+        val li : LayoutInflater = layoutInflater
+        val layout : View = li.inflate(R.layout.toast_erfolgreich,view.findViewById(R.id.toast))
+        val toast : Toast = Toast(context)
+        toast.duration = Toast.LENGTH_SHORT
+        toast.setGravity(Gravity.TOP,10,0)
+        toast.view = layout
         insertbtn.setOnClickListener {
+
             val nameTXT : String = name.text.toString()
             val betragTXT : Float = getFloat(betrag.text.toString())
             val datumTXT : String = datum.text.toString()
@@ -52,7 +60,10 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
                 kategorie.error = "Name ist lang !!!"
             } else {
                 if(checkinsertdata) {
-                    Toast.makeText(activity,"New Entry Inserted", Toast.LENGTH_SHORT).show()
+
+                    toast.show()
+
+                   // Toast.makeText(activity,"New Entry Inserted", Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(activity,"New Entry not Inserted", Toast.LENGTH_SHORT).show()
                 }

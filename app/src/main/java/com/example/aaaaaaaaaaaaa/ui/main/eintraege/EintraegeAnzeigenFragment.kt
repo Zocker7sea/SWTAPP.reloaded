@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.aaaaaaaaaaaaa.R
 
+//@Entity
 class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen) {
 
 

@@ -15,11 +15,11 @@ class WaehrungsrechnerFragment : Fragment(R.layout.fragment_waehrungsrechner) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val btnmenu = view.findViewById<Button>(R.id.menubtn)
-        btnmenu.setOnClickListener {
-            activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, SideeingeklapptFragment())?.commitNow()
-        }
+//        val btnmenu = view.findViewById<Button>(R.id.menubtn)
+//        btnmenu.setOnClickListener {
+//            activity?.supportFragmentManager?.beginTransaction()
+//                ?.replace(R.id.container, SideeingeklapptFragment())?.commitNow()
+//        }
     }
 
 }

@@ -39,3 +39,9 @@ class EintraegemenuFragment : Fragment(R.layout.fragment_eintraegemenu) {
         }
     }
 }
+
+//class EintraegesuchenFragment : Fragment(R.layout.fragment_eintraegesuchen) {
+//
+//
+//
+//}

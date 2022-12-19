@@ -54,7 +54,7 @@ class SidekategorieFragment : Fragment(R.layout.side_menu_kategorie) {
         val btneintraege = view.findViewById<Button>(R.id.eintraege)
         btneintraege.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
-                ?.replace(R.id.container, SidekategorieFragment())?.commitNow()
+                ?.replace(R.id.container, SideeintraegeFragment())?.commitNow()
         }
 
 

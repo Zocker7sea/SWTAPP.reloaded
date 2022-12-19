@@ -15,12 +15,12 @@ class EinstellungenFragment : Fragment(R.layout.fragment_einstellungen) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //val DB : ConnectionHelper = ConnectionHelper(activity)
+        val DB : ConnectionHelper = ConnectionHelper(activity)
         val btndbwipe = view.findViewById<Button>(R.id.Databasewipe)
         btndbwipe.setOnClickListener{
             Toast.makeText(activity,"delete",Toast.LENGTH_SHORT).show()
 
-            //DB.clear()
+            DB.clear()
         }
     }
 
