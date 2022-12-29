@@ -15,11 +15,22 @@ class WaehrungsrechnerFragment : Fragment(R.layout.fragment_waehrungsrechner) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        val btnmenu = view.findViewById<Button>(R.id.menubtn)
-//        btnmenu.setOnClickListener {
-//            activity?.supportFragmentManager?.beginTransaction()
-//                ?.replace(R.id.container, SideeingeklapptFragment())?.commitNow()
-//        }
+
+
+
     }
+
+     fun berechne(waehrung1 : String, waehrung2 : String, betrag : Float) : Float {
+         return betrag;
+     }
+
+    private fun waehrungsrechner() : WaehrungsrechnerFragment {
+        return  this;
+    }
+    public  fun getInstance() : WaehrungsrechnerFragment {
+        return this;
+    }
+
+
 
 }

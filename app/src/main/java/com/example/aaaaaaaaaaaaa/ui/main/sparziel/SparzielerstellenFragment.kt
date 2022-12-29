@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import com.example.aaaaaaaaaaaaa.R
 
 class SparzielerstellenFragment : Fragment(R.layout.fragment_sparzielerstellen) {
-
+    public  fun getInstance() : SparzielerstellenFragment {
+        return this;
+    }
 
 }

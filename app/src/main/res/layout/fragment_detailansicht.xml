@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:text="Details"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="2dp"
+        android:text="Name"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="Datum"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="Betrag"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="Kategorie"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:text="Währung"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="339dp"
+        android:layout_height="255dp"
+        android:layout_marginBottom="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_baseline_image_24" />
+
+    <EditText
+        android:id="@+id/nameEditText"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:hint="Edeka"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <EditText
+        android:id="@+id/betragEditText"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:hint="10"
+        android:inputType="numberDecimal"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView18"
+        app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
+
+    <EditText
+        android:id="@+id/datumEditText"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:hint="1.1.2023"
+        android:inputType="date"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/betragEditText" />
+
+    <EditText
+        android:id="@+id/kategorieEditText"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:hint="lebensmittel"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintTop_toBottomOf="@+id/datumEditText" />
+
+    <EditText
+        android:id="@+id/waehrungEditText"
+        android:layout_width="310dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:hint="$"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView20"
+        app:layout_constraintTop_toBottomOf="@+id/kategorieEditText" />
+</androidx.constraintlayout.widget.ConstraintLayout>
