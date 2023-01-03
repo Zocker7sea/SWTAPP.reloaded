@@ -13,7 +13,7 @@ public class Eintrag {
 
     private float betrag;
 
-    private String date;
+    private Date date;
 
     private String waehrung;
 
@@ -23,7 +23,7 @@ public class Eintrag {
 
     public static ArrayList<Eintrag> eintragArrayList = new ArrayList<>();
 
-    public Eintrag(int id, String name, float betrag, String date , String kategorie,String waehrung, Date deleted) {
+    public Eintrag(int id, String name, float betrag, Date date , String kategorie,String waehrung, Date deleted) {
         this.id = id;
         this.name = name;
         this.betrag = betrag;
@@ -33,7 +33,7 @@ public class Eintrag {
         this.deleted = deleted;
 
     }
-    public Eintrag(int id, String name, float betrag, String date,String kategorie,String waehrung) {
+    public Eintrag(int id, String name, float betrag, Date date, String kategorie, String waehrung) {
         this.id = id;
         this.name = name;
         this.betrag = betrag;
@@ -44,7 +44,7 @@ public class Eintrag {
 
     }
 
-    public Eintrag(int id, String name, float betrag, String date, String waehrung) {
+    public Eintrag(int id, String name, float betrag,Date date, String waehrung) {
         this.id = id;
         this.name = name;
         this.betrag = betrag;
@@ -55,7 +55,7 @@ public class Eintrag {
 
 
     }
-    public Eintrag(int id, String name, float betrag, String date) {
+    public Eintrag(int id, String name, float betrag, Date date) {
         this.id = id;
         this.name = name;
         this.betrag = betrag;
@@ -88,11 +88,11 @@ public class Eintrag {
         this.betrag = betrag;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return this.date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

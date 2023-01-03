@@ -7,14 +7,11 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.Fragment
-import com.example.aaaaaaaaaaaaa.ConnectionHelper
 import com.example.aaaaaaaaaaaaa.Model.Eintrag
 import com.example.aaaaaaaaaaaaa.R
 import com.example.aaaaaaaaaaaaa.SQLiteManager
 import java.text.DateFormat
-import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -84,7 +81,7 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
             val kategorietxt = kategorie.text.toString()
             //var waehrungtxt = waehrung.text.toString()
             var waehrung = if(waehrungSpinner.selectedItem.toString().isEmpty()) "€" else waehrungSpinner.selectedItem.toString()
-            val id: Int = Eintrag.eintragArrayList.size
+            val id : Int = sqLiteManager!!.getIdFromCounter() + 1
             //var changes: Boolean = true
             //while (changes) {
             //set default währung
@@ -102,7 +99,8 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
                 //changes = false
                 //neuen eintrag erstellen
                 val newEintrag =
-                    Eintrag(id, nametxt, betragtxt, datumtxt, kategorietxt, waehrung)
+                    Eintrag(id, nametxt, betragtxt,
+                        getDateFromString(datumtxt) as java.sql.Date?, kategorietxt, waehrung)
                 //eintrag in die database inserten
                 val checkinsertdata = sqLiteManager!!.addEintragToDatabase(newEintrag)
                 if (checkinsertdata) {
@@ -219,14 +217,13 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
         return res
     }
 
-    fun getDateFromString(dateString: String?): Date? {
+    fun getDateFromString(dateString: String): Date? {
+
         val sdf = SimpleDateFormat("dd.MM.yyyy")
-        return try {
-            sdf.parse(dateString)
-        } catch (e: ParseException) {
-            e.printStackTrace()
-            null
-        }
+        val newsdate = sdf.parse(dateString)
+        val sqlStartDate = java.sql.Date(newsdate.time)
+        return sqlStartDate
+
     }
 
     private fun getStringFromDate(date: Date?): String? {

@@ -58,7 +58,7 @@ class SQLiteManager(context: Context?) :
         contentValues.put(ID_FIELD, eintrag.id)
         contentValues.put(NAME_FIELD, eintrag.name)
         contentValues.put(BETRAG_FIELD, eintrag.betrag)
-        contentValues.put(DATUM_FIELD, eintrag.date)//getStringFromDate(eintrag.date))
+        contentValues.put(DATUM_FIELD, getStringFromDate(eintrag.date))
         contentValues.put(KATEGORIE_FIELD, eintrag.kategorie)
         contentValues.put(WAEHRUNG_FIELD, eintrag.waerhung)
         contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.deleted))
@@ -77,7 +77,7 @@ class SQLiteManager(context: Context?) :
         contentValues.put(ID_FIELD, eintrag.id)
         contentValues.put(NAME_FIELD, eintrag.name)
         contentValues.put(BETRAG_FIELD, eintrag.betrag)
-        contentValues.put(DATUM_FIELD, eintrag.date)//getStringFromDate(eintrag.date))
+        contentValues.put(DATUM_FIELD,getStringFromDate(eintrag.date))
         contentValues.put(KATEGORIE_FIELD, eintrag.kategorie)
         contentValues.put(WAEHRUNG_FIELD, eintrag.waerhung)
         contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.deleted))
@@ -165,7 +165,9 @@ class SQLiteManager(context: Context?) :
                     val datum = getDateFromString(stringdatum)
                     //val kategorie = result.getString(5)
                     //val waehrung = result.getString(6)
-                    val eintrag = Eintrag(id, name, betrag, stringdatum)
+                    val eintrag = Eintrag(id, name, betrag,
+                        getDateFromString(stringdatum) as java.sql.Date?
+                    )
                     Eintrag.eintragArrayList.add(eintrag)
                 }
             }
@@ -178,7 +180,7 @@ class SQLiteManager(context: Context?) :
         contentValues.put(ID_FIELD, eintrag.id)
         contentValues.put(NAME_FIELD, eintrag.name)
         contentValues.put(BETRAG_FIELD, eintrag.betrag)
-        contentValues.put(DATUM_FIELD,eintrag.date)// getStringFromDate(eintrag.date))
+        contentValues.put(DATUM_FIELD,getStringFromDate(eintrag.date))
         contentValues.put(KATEGORIE_FIELD, eintrag.kategorie)
         contentValues.put(WAEHRUNG_FIELD, eintrag.waerhung)
         contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.deleted))
@@ -219,7 +221,7 @@ class SQLiteManager(context: Context?) :
         private const val DELETED_FIELD = "deleted"
 
         @SuppressLint("SimpleDateFormat")
-        val dateFormat: DateFormat = SimpleDateFormat("MM-dd-yyyy HH:mm:ss")
+        val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy")
         fun instanceOfDatabase(context: Context?): SQLiteManager? {
             if (sqLiteManager == null) sqLiteManager = SQLiteManager(context)
             return sqLiteManager
