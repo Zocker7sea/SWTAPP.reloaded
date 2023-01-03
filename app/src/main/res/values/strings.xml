@@ -2,4 +2,14 @@
     <string name="app_name">Aaaaaaaaaaaaa</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="waehrung">
+        <item>€</item>
+        <item>$</item>
+        <item>R</item>
+        <item>£</item>
+        <item>¥</item>
+        <item>Fr</item>
+        <item>C$</item>
+        <item>NZ$</item>
+    </string-array>
 </resources>

@@ -90,11 +90,25 @@ class SQLiteManager(context: Context?) :
 
        // sqLiteDatabase.insert(TABLE_NAME, null, contentValues)
     }
+    fun getIdFromCounter(): Int {
+        var res : Int? = null
+        val sqLiteDatabase = this.readableDatabase
+        val query = "SELECT COUNT(*) FROM " + TABLE_NAME
+        val cursor = sqLiteDatabase.rawQuery(query, null)
+        if(cursor.count != 0) {
+            if(cursor.moveToNext()) {
+                res = cursor!!.getInt(0)
+            }
+        } else {
+            res = 1
+        }
 
+        return res!!
+    }
 
     fun getListViewItemsId(): ArrayList<Int> {
         val sqLiteDatabase = this.writableDatabase
-        val query = "SELECT id FROM " + TABLE_NAME
+        val query = "SELECT COUNT(COUNTER) FROM " + TABLE_NAME
         val cursor: Cursor = sqLiteDatabase.rawQuery(query, null)
         val idlist : ArrayList<Int> = ArrayList<Int>()
         while (cursor.moveToNext()){

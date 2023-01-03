@@ -10,6 +10,7 @@ import com.example.aaaaaaaaaaaaa.ui.main.ausgaben.AusgabenhinzufuegenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.ausgaben.RegelmaessigeausgabenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.einnahmen.EinnahmenhinzufuegenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.einnahmen.RegelmaessigeeinnahmenFragment
+import com.example.aaaaaaaaaaaaa.ui.main.eintraege.DetailansichtFragment
 import com.example.aaaaaaaaaaaaa.ui.main.eintraege.EintraegeAnzeigenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.eintraege.EintraegesuchenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.kategorie.KategorieanzeigenFragment
@@ -30,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val MainFragment = MainFragment()
+        val db = SQLiteManager.instanceOfDatabase(this)
+        db!!.writableDatabase
         supportFragmentManager.beginTransaction().replace(R.id.container, MainFragment,"Main").commitNow()
     }
 
@@ -83,6 +86,8 @@ class MainActivity : AppCompatActivity() {
         }else if(fragment is EintraegesuchenFragment) {
            // Toast.makeText(this,"EintraegeAnzeigenFragment",Toast.LENGTH_SHORT).show()
             supportFragmentManager.beginTransaction().replace(R.id.container, SideeintraegeFragment(),"Side Menu").commitNow()
+        } else if(fragment is DetailansichtFragment) {
+            supportFragmentManager.beginTransaction().replace(R.id.container, EintraegeAnzeigenFragment(),"Side Menu").commitNow()
         }
         //Kategorie
         else if(fragment is KategorieloeschenFragment) {
