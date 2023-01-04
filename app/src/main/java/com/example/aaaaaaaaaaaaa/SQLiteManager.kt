@@ -1,6 +1,5 @@
 package com.example.aaaaaaaaaaaaa
 
-import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
@@ -91,7 +90,7 @@ class SQLiteManager(context: Context?) :
        // sqLiteDatabase.insert(TABLE_NAME, null, contentValues)
     }
     fun getIdFromCounter(): Int {
-        var res : Int? = null
+        var res : Int = 1
         val sqLiteDatabase = this.readableDatabase
         val query = "SELECT COUNT(*) FROM " + TABLE_NAME
         val cursor = sqLiteDatabase.rawQuery(query, null)
@@ -103,7 +102,41 @@ class SQLiteManager(context: Context?) :
             res = 1
         }
 
-        return res!!
+        return res
+    }
+fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String {
+    var kat : String = ""
+    val sqLiteDatabase = this.readableDatabase
+    val projection = arrayOf<String>(KATEGORIE_FIELD)
+    val selection: String = NAME_FIELD + "=? AND " + BETRAG_FIELD + "=? "//AND " + DATUM_FIELD + "=?"
+    val selectionArgs = arrayOf<String>(namee,betrag.toString())//,datum.toString())
+   // val query = "SELECT kategorie FROM " + TABLE_NAME + " where " + NAME_FIELD + "=" + namee //+ "  AND " + BETRAG_FIELD + " =? AND " + DATUM_FIELD + " =?"
+    val cursor2 = sqLiteDatabase.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+
+    if(cursor2.count != 0) {
+        if(cursor2.moveToNext()) {
+            kat = cursor2!!.getString(0)
+        }
+    } else {
+        kat = " "
+    }
+    return kat
+}
+    fun getWaehrunFromNameETC(namee : String, betrag : Float, datum : Date): String {
+        var wae = ""
+        val sqLiteDatabase = this.readableDatabase
+        val projection = arrayOf<String>(WAEHRUNG_FIELD)
+        val selection: String = NAME_FIELD + "=? AND " + BETRAG_FIELD + "=? "//AND " + DATUM_FIELD + "=?"
+        val selectionArgs = arrayOf<String>(namee,betrag.toString())//,datum.toString())
+        val cursor2 = sqLiteDatabase.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+        if(cursor2.count != 0) {
+            if(cursor2.moveToNext()) {
+                wae = cursor2!!.getString(0)
+            }
+        } else {
+            wae = " "
+        }
+        return wae
     }
 
     fun getListViewItemsId(): ArrayList<Int> {
@@ -163,12 +196,17 @@ class SQLiteManager(context: Context?) :
                     val betrag = result.getFloat(3)
                     val stringdatum = result.getString(4)
                     val datum = getDateFromString(stringdatum)
+                   // val sqldate =  java.sql.Date(datum!!.time)
                     //val kategorie = result.getString(5)
                     //val waehrung = result.getString(6)
-                    val eintrag = Eintrag(id, name, betrag,
-                        getDateFromString(stringdatum) as java.sql.Date?
-                    )
-                    Eintrag.eintragArrayList.add(eintrag)
+                    val eintrag = datum?.let {
+                        Eintrag(id, name, betrag,
+                            it
+                        )
+                    }
+                    if (eintrag != null) {
+                        Eintrag.eintragArrayList.add(eintrag)
+                    }
                 }
             }
         }
@@ -220,8 +258,9 @@ class SQLiteManager(context: Context?) :
         private const val WAEHRUNG_FIELD = "waehrung"
         private const val DELETED_FIELD = "deleted"
 
-        @SuppressLint("SimpleDateFormat")
+
         val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy")
+
         fun instanceOfDatabase(context: Context?): SQLiteManager? {
             if (sqLiteManager == null) sqLiteManager = SQLiteManager(context)
             return sqLiteManager

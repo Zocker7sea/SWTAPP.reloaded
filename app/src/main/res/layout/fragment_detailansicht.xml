@@ -23,6 +23,7 @@
         android:layout_width="100dp"
         android:layout_height="60dp"
         android:layout_marginTop="2dp"
+        android:gravity="center"
         android:text="Name"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -34,6 +35,7 @@
         android:id="@+id/textView17"
         android:layout_width="100dp"
         android:layout_height="60dp"
+        android:gravity="center"
         android:text="Datum"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -45,6 +47,7 @@
         android:id="@+id/textView18"
         android:layout_width="100dp"
         android:layout_height="60dp"
+        android:gravity="center"
         android:text="Betrag"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -56,6 +59,7 @@
         android:id="@+id/textView19"
         android:layout_width="100dp"
         android:layout_height="60dp"
+        android:gravity="center"
         android:text="Kategorie"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -67,6 +71,7 @@
         android:id="@+id/textView20"
         android:layout_width="100dp"
         android:layout_height="60dp"
+        android:gravity="center"
         android:text="Währung"
         android:textAlignment="center"
         android:textSize="20sp"
@@ -84,12 +89,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_baseline_image_24" />
 
-    <EditText
+    <TextView
+
         android:id="@+id/nameEditText"
         android:layout_width="310dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="2dp"
+        android:gravity="center"
         android:hint="Edeka"
         android:inputType="text"
         android:maxLines="1"
@@ -101,11 +108,12 @@
         app:layout_constraintStart_toEndOf="@+id/textView10"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
-    <EditText
+    <TextView
         android:id="@+id/betragEditText"
         android:layout_width="310dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
+        android:gravity="center"
         android:hint="10"
         android:inputType="numberDecimal"
         android:maxLines="1"
@@ -118,11 +126,12 @@
         app:layout_constraintStart_toEndOf="@+id/textView18"
         app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
 
-    <EditText
+    <TextView
         android:id="@+id/datumEditText"
         android:layout_width="310dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
+        android:gravity="center"
         android:hint="1.1.2023"
         android:inputType="date"
         android:maxLines="1"
@@ -135,11 +144,12 @@
         app:layout_constraintStart_toEndOf="@+id/textView17"
         app:layout_constraintTop_toBottomOf="@+id/betragEditText" />
 
-    <EditText
+    <TextView
         android:id="@+id/kategorieEditText"
         android:layout_width="310dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
+        android:gravity="center"
         android:hint="lebensmittel"
         android:inputType="text"
         android:maxLines="1"
@@ -152,11 +162,12 @@
         app:layout_constraintStart_toEndOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/datumEditText" />
 
-    <EditText
+    <TextView
         android:id="@+id/waehrungEditText"
         android:layout_width="310dp"
         android:layout_height="60dp"
         android:layout_gravity="center"
+        android:gravity="center"
         android:hint="$"
         android:inputType="text"
         android:maxLines="1"

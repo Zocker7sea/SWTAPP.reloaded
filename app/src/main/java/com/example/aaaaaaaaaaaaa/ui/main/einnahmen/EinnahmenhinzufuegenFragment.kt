@@ -80,7 +80,7 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
             val datumtxt = if(datum.text.toString().isEmpty()) getCurrentDate() else datum.text.toString()
             val kategorietxt = kategorie.text.toString()
             //var waehrungtxt = waehrung.text.toString()
-            var waehrung = if(waehrungSpinner.selectedItem.toString().isEmpty()) "€" else waehrungSpinner.selectedItem.toString()
+            val waehrung = if(waehrungSpinner.selectedItem.toString().isEmpty()) "€" else waehrungSpinner.selectedItem.toString()
             val id : Int = sqLiteManager!!.getIdFromCounter() + 1
             //var changes: Boolean = true
             //while (changes) {
@@ -100,9 +100,9 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
                 //neuen eintrag erstellen
                 val newEintrag =
                     Eintrag(id, nametxt, betragtxt,
-                        getDateFromString(datumtxt) as java.sql.Date?, kategorietxt, waehrung)
+                        getDateFromString(datumtxt), kategorietxt, waehrung)
                 //eintrag in die database inserten
-                val checkinsertdata = sqLiteManager!!.addEintragToDatabase(newEintrag)
+                val checkinsertdata = sqLiteManager.addEintragToDatabase(newEintrag)
                 if (checkinsertdata) {
                     //wenn es geklappt hat, custom toast aufrufen und den eintrag in die eintrasliste hinzufuegen
                     toast.show()
@@ -201,7 +201,6 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
 //        }
 //    }
     fun getCurrentDate(): String{
-
         val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy")
         val currentDate = Date()
         return dateFormat.format(currentDate)
@@ -217,7 +216,7 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
         return res
     }
 
-    fun getDateFromString(dateString: String): Date? {
+    fun getDateFromString(dateString: String): Date {
 
         val sdf = SimpleDateFormat("dd.MM.yyyy")
         val newsdate = sdf.parse(dateString)
