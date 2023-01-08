@@ -89,6 +89,13 @@ class SQLiteManager(context: Context?) :
 
        // sqLiteDatabase.insert(TABLE_NAME, null, contentValues)
     }
+    fun clear() {
+        val sqLiteDatabase = this.writableDatabase
+        //val query  = "DELETE FROM " + TABLE_NAME
+        sqLiteDatabase.delete(TABLE_NAME,null,null)
+}
+
+
     fun getIdFromCounter(): Int {
         var res : Int = 1
         val sqLiteDatabase = this.readableDatabase
@@ -139,51 +146,43 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
         return wae
     }
 
-    fun getListViewItemsId(): ArrayList<Int> {
-        val sqLiteDatabase = this.writableDatabase
-        val query = "SELECT COUNT(COUNTER) FROM " + TABLE_NAME
-        val cursor: Cursor = sqLiteDatabase.rawQuery(query, null)
-        val idlist : ArrayList<Int> = ArrayList<Int>()
-        while (cursor.moveToNext()){
-            idlist.add(cursor.getInt(0))
-        }
-        return idlist
-    }
-    fun getListViewItemsName(): ArrayList<String> {
-        val sqLiteDatabase = this.writableDatabase
-        val query = "SELECT name FROM " + TABLE_NAME
-        val cursor: Cursor = sqLiteDatabase.rawQuery(query, null)
-        val namelist : ArrayList<String> = ArrayList<String>()
-        while (cursor.moveToNext()){
-            namelist.add(cursor.getString(0))
-        }
-        return namelist
-    }
-    fun getListViewItemsBetrag(): ArrayList<Float> {
-        val sqLiteDatabase = this.writableDatabase
-        val query = "SELECT name FROM " + TABLE_NAME
-        val cursor: Cursor = sqLiteDatabase.rawQuery(query, null)
-        val betraglist : ArrayList<Float> = ArrayList<Float>()
-        while (cursor.moveToNext()){
-            betraglist.add(cursor.getFloat(0))
-        }
-        return betraglist
-    }
-    fun getListViewItemsDatum(): ArrayList<Date> {
-        val sqLiteDatabase = this.writableDatabase
-        val query = "SELECT name FROM " + TABLE_NAME
-        val cursor: Cursor = sqLiteDatabase.rawQuery(query, null)
-        val datumlist : ArrayList<Date> = ArrayList<Date>()
-        while (cursor.moveToNext()){
-            val datee  : String = cursor.getString(0)
-            getDateFromString(datee)?.let { datumlist.add(it) }
-        }
-        return datumlist
-    }
+
 
     fun getdata(): Cursor {
         val DB = this.readableDatabase
         return DB.rawQuery(" Select * from Eintrag",null)
+    }
+
+    fun populateEintragListArrayVonBIs(von : String, bis : String) {
+        val sqLiteDatabase = this.readableDatabase
+        val projection = arrayOf<String>("*")
+        val selection: String = DATUM_FIELD + "BETWEEN =? AND =? "
+        val selectionArgs = arrayOf<String>(von,bis)
+        sqLiteDatabase.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null).use { result ->
+
+
+       // sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null).use { result ->
+            if (result.count != 0) {
+                while (result.moveToNext()) {
+                    val id = result.getInt(0)
+                    val name = result.getString(2)
+                    val betrag = result.getFloat(3)
+                    val stringdatum = result.getString(4)
+                    val datum = getDateFromString(stringdatum)
+                    // val sqldate =  java.sql.Date(datum!!.time)
+                    //val kategorie = result.getString(5)
+                    //val waehrung = result.getString(6)
+                    val eintrag = datum?.let {
+                        Eintrag(id, name, betrag,
+                            it
+                        )
+                    }
+                    if (eintrag != null) {
+                        Eintrag.eintragArrayList.add(eintrag)
+                    }
+                }
+            }
+        }
     }
 
     fun populateEintragListArray() {

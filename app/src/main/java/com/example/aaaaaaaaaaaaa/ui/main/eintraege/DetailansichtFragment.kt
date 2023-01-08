@@ -58,11 +58,11 @@ class DetailansichtFragment : Fragment(R.layout.fragment_detailansicht) {
     }
 
     companion object {
-        fun newInstance(name: String, betrag: Float,datum : String,kategorie : String, waehrung: String) : DetailansichtFragment {
+        fun newInstance(name: String, betrag: String,datum : String,kategorie : String, waehrung: String) : DetailansichtFragment {
             return DetailansichtFragment().apply {
                 arguments = Bundle().apply {
                     putString("name", name)
-                    putFloat("betrag", betrag)
+                    putString("betrag", betrag)
                     putString("date", datum)
                     putString("kategorie",kategorie)
                     putString("waehrung", waehrung)

@@ -34,14 +34,7 @@ class EintragAdapter(context: Context?, eintrags: List<Eintrag?>?) :
         datum.text =     sdf.format(eintrag.date)       //getDateFromString(eintrag.date.toString()).toString()
         return row
     }
-    fun getDateFromString(dateString: String): java.util.Date {
-        val sdf = SimpleDateFormat("dd.MM.yyyy")
-        val newsdate = sdf.parse(dateString)
-        val sqlStartDate = java.sql.Date(newsdate.time)
-        return sqlStartDate
-
-    }
-    override fun getItem(position: Int): Eintrag? {
+     override fun getItem(position: Int): Eintrag? {
         return super.getItem(position)
     }
 }

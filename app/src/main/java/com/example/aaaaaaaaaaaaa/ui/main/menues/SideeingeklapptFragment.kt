@@ -1,15 +1,10 @@
 package com.example.aaaaaaaaaaaaa.ui.main.menues
 
-import android.content.Intent
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Toast
 import com.example.aaaaaaaaaaaaa.R
-import com.example.aaaaaaaaaaaaa.ui.main.MainFragment
 import com.example.aaaaaaaaaaaaa.ui.main.ausgaben.AusgabenhinzufuegenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.einnahmen.EinnahmenhinzufuegenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.singleitems.EinstellungenFragment
@@ -54,6 +49,14 @@ class SideeingeklapptFragment : Fragment(R.layout.side_menu) {
         }
 
         val btnstatistik = view.findViewById<Button>(R.id.statistik)
+//        requireView().findViewById<View>(R.id.statistik).setOnClickListener {
+//            startActivity(
+//                Intent(
+//                    context,
+//                    PieChartActivity::class.java
+//                )
+//            )
+//        }
         btnstatistik.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.container, StatistikFragment())?.commitNow()
