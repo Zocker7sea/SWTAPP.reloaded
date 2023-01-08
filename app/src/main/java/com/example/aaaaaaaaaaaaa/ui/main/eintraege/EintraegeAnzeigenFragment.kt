@@ -3,16 +3,13 @@ package com.example.aaaaaaaaaaaaa.ui.main.eintraege
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ImageView
-import android.widget.ListView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.aaaaaaaaaaaaa.EintragAdapter
 import com.example.aaaaaaaaaaaaa.Model.Eintrag
 import com.example.aaaaaaaaaaaaa.R
 import com.example.aaaaaaaaaaaaa.SQLiteManager
+import com.example.aaaaaaaaaaaaa.ui.main.einnahmen.EinnahmenhinzufuegenFragment
 
 import java.text.SimpleDateFormat
 import java.util.*
@@ -24,6 +21,8 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
     private lateinit var datumVon : TextView
     private lateinit var datumBis : TextView
     private lateinit var eintragAdapter : EintragAdapter
+    private lateinit var btnmenu : ImageButton
+    private var isMenuOpen : Boolean = false
     //var empty_imageview: ImageView? = null
     //var no_data: TextView? = null
 
@@ -39,7 +38,19 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
             showDatePickerDialogeBis()
             eintragAdapter.notifyDataSetChanged()
         }
+        btnmenu.setOnClickListener {
+            if(!isMenuOpen) {
+                isMenuOpen = true
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container, EintraegemenuFragment())?.commitNow()
 
+            } else {
+                isMenuOpen = false
+                activity?.supportFragmentManager?.beginTransaction()
+                    ?.replace(R.id.container,EintraegemenuFragment())?.commitNow()
+            }
+
+        }
         loadFromDBToMemory()
         setEintragAdapter()
         setOnClickListener()
@@ -92,13 +103,11 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
         }
 
 
-
-
-
     private fun initWidgets() {
         eintragListView = requireView().findViewById(R.id.eintraegeListView)
         datumVon= requireView().findViewById(R.id.editTextDate)
         datumBis = requireView().findViewById(R.id.editTextDate2)
+        btnmenu = requireView().findViewById(R.id.eintraegemenu)
         // empty_imageview = requireView().findViewById(R.id.empty_imageview)
         //no_data = requireView().findViewById<TextView>(R.id.no_data)
     }

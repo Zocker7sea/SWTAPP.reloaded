@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import com.example.aaaaaaaaaaaaa.R
 import com.example.aaaaaaaaaaaaa.ui.main.ausgaben.AusgabenhinzufuegenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.einnahmen.EinnahmenhinzufuegenFragment
@@ -16,7 +17,11 @@ class EintraegemenuFragment : Fragment(R.layout.fragment_eintraegemenu) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val btnmenu = view.findViewById<ImageButton>(R.id.eintraegemenu2)
+        btnmenu.setOnClickListener {
+            activity?.supportFragmentManager?.beginTransaction()
+                ?.replace(R.id.container, EintraegeAnzeigenFragment())?.commitNow()
+        }
         val btnREEIN = view.findViewById<Button>(R.id.btnREE)
         btnREEIN.setOnClickListener {
             activity?.supportFragmentManager?.beginTransaction()
