@@ -150,7 +150,6 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:hint="lebensmittel"
         android:inputType="text"
         android:maxLines="1"
         android:textAlignment="center"

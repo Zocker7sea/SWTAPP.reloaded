@@ -22,9 +22,7 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
     private lateinit var datumBis : TextView
     private lateinit var eintragAdapter : EintragAdapter
     private lateinit var btnmenu : ImageButton
-    private var isMenuOpen : Boolean = false
-    //var empty_imageview: ImageView? = null
-    //var no_data: TextView? = null
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,17 +37,8 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
             eintragAdapter.notifyDataSetChanged()
         }
         btnmenu.setOnClickListener {
-            if(!isMenuOpen) {
-                isMenuOpen = true
                 activity?.supportFragmentManager?.beginTransaction()
                     ?.replace(R.id.container, EintraegemenuFragment())?.commitNow()
-
-            } else {
-                isMenuOpen = false
-                activity?.supportFragmentManager?.beginTransaction()
-                    ?.replace(R.id.container,EintraegemenuFragment())?.commitNow()
-            }
-
         }
         loadFromDBToMemory()
         setEintragAdapter()
@@ -108,8 +97,6 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
         datumVon= requireView().findViewById(R.id.editTextDate)
         datumBis = requireView().findViewById(R.id.editTextDate2)
         btnmenu = requireView().findViewById(R.id.eintraegemenu)
-        // empty_imageview = requireView().findViewById(R.id.empty_imageview)
-        //no_data = requireView().findViewById<TextView>(R.id.no_data)
     }
 
     private fun loadFromDBToMemory() {
