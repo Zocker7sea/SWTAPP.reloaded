@@ -1,5 +1,6 @@
 package com.example.aaaaaaaaaaaaa.ui.main.menues
 
+import StatistikFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -8,7 +9,6 @@ import com.example.aaaaaaaaaaaaa.R
 import com.example.aaaaaaaaaaaaa.ui.main.ausgaben.AusgabenhinzufuegenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.einnahmen.EinnahmenhinzufuegenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.singleitems.EinstellungenFragment
-import com.example.aaaaaaaaaaaaa.ui.main.singleitems.StatistikFragment
 import com.example.aaaaaaaaaaaaa.ui.main.singleitems.WaehrungsrechnerFragment
 import com.example.aaaaaaaaaaaaa.ui.main.sparziel.SparzielanzeigenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.sparziel.SparzielerstellenFragment

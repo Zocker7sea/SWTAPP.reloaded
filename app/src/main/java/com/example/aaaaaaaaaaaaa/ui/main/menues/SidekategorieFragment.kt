@@ -1,5 +1,6 @@
 package com.example.aaaaaaaaaaaaa.ui.main.menues
 
+import StatistikFragment
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -11,7 +12,6 @@ import com.example.aaaaaaaaaaaaa.ui.main.kategorie.KategorieanzeigenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.kategorie.KategorieerstellenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.kategorie.KategorieloeschenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.singleitems.EinstellungenFragment
-import com.example.aaaaaaaaaaaaa.ui.main.singleitems.StatistikFragment
 import com.example.aaaaaaaaaaaaa.ui.main.singleitems.WaehrungsrechnerFragment
 
 

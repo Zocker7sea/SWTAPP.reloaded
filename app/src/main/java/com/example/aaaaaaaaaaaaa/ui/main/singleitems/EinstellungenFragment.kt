@@ -16,7 +16,6 @@ class EinstellungenFragment : Fragment(R.layout.fragment_einstellungen) {
         val btndbwipe = view.findViewById<Button>(R.id.Databasewipe)
         btndbwipe.setOnClickListener{
             Toast.makeText(activity,"delete",Toast.LENGTH_SHORT).show()
-
             DB.clear()
         }
     }

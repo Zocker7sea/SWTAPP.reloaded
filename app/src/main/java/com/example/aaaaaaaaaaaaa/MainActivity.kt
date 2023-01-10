@@ -1,6 +1,7 @@
 package com.example.aaaaaaaaaaaaa
 
 
+import StatistikFragment
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +19,6 @@ import com.example.aaaaaaaaaaaaa.ui.main.kategorie.KategorieerstellenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.kategorie.KategorieloeschenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.menues.*
 import com.example.aaaaaaaaaaaaa.ui.main.singleitems.EinstellungenFragment
-import com.example.aaaaaaaaaaaaa.ui.main.singleitems.StatistikFragment
 import com.example.aaaaaaaaaaaaa.ui.main.singleitems.WaehrungsrechnerFragment
 import com.example.aaaaaaaaaaaaa.ui.main.sparziel.SparzielanzeigenFragment
 import com.example.aaaaaaaaaaaaa.ui.main.sparziel.SparzielerstellenFragment
