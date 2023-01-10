@@ -121,10 +121,10 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
         val sdf = SimpleDateFormat("dd.MM.yyyy")
         eintragListView!!.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, position, l ->
-                val get = adapterView.getAdapter().getItem(position) as Eintrag;
-                val name = get.name
-                val betrag = get.betrag
-                val datum = get.date
+                val get = eintragAdapter.getItem(position);
+                val name = get!!.getName()
+                val betrag = get.getBetrag()
+                val datum = get.getDate()
                 val kategorie = sqLiteManager!!.getKategorieForNameETC(name, betrag, datum)
                 val waehrung = sqLiteManager.getWaehrunFromNameETC(name, betrag, datum)
                 val newDatum = sdf.format(datum)

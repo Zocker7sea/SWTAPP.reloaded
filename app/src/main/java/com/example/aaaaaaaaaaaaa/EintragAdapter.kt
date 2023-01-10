@@ -28,10 +28,10 @@ class EintragAdapter(context: Context?, eintrags: List<Eintrag?>?) :
         val name = row.findViewById<TextView>(R.id.cellName)
         val betrag = row.findViewById<TextView>(R.id.cellBetrag)
         val datum = row.findViewById<TextView>(R.id.cellDatum)
-        id.text = eintrag!!.id.toString()
-        name.text = eintrag.name
-        betrag.text = eintrag.betrag.toString()
-        datum.text =     sdf.format(eintrag.date)       //getDateFromString(eintrag.date.toString()).toString()
+        id.text = eintrag!!.getId().toString()
+        name.text = eintrag.getName()
+        betrag.text = eintrag.getBetrag().toString()
+        datum.text =     sdf.format(eintrag.getDate())       //getDateFromString(eintrag.date.toString()).toString()
         return row
     }
      override fun getItem(position: Int): Eintrag? {

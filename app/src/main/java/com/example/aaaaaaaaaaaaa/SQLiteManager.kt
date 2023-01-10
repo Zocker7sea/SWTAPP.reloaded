@@ -54,13 +54,13 @@ class SQLiteManager(context: Context?) :
     ): Boolean {
         val sqLiteDatabase = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(ID_FIELD, eintrag.id)
-        contentValues.put(NAME_FIELD, eintrag.name)
-        contentValues.put(BETRAG_FIELD, eintrag.betrag)
-        contentValues.put(DATUM_FIELD, getStringFromDate(eintrag.date))
-        contentValues.put(KATEGORIE_FIELD, eintrag.kategorie)
-        contentValues.put(WAEHRUNG_FIELD, eintrag.waerhung)
-        contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.deleted))
+        contentValues.put(ID_FIELD, eintrag.getId())
+        contentValues.put(NAME_FIELD, eintrag.getName())
+        contentValues.put(BETRAG_FIELD, eintrag.getBetrag())
+        contentValues.put(DATUM_FIELD, getStringFromDate(eintrag.getDate()))
+        contentValues.put(KATEGORIE_FIELD, eintrag.getKategorie())
+        contentValues.put(WAEHRUNG_FIELD, eintrag.getWaehrung())
+        contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.getDeleted()))
         val result = sqLiteDatabase.insert(TABLE_NAME, null, contentValues)
         return if (result == -1L) {
             false
@@ -73,13 +73,13 @@ class SQLiteManager(context: Context?) :
 
         val sqLiteDatabase = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(ID_FIELD, eintrag.id)
-        contentValues.put(NAME_FIELD, eintrag.name)
-        contentValues.put(BETRAG_FIELD, eintrag.betrag)
-        contentValues.put(DATUM_FIELD,getStringFromDate(eintrag.date))
-        contentValues.put(KATEGORIE_FIELD, eintrag.kategorie)
-        contentValues.put(WAEHRUNG_FIELD, eintrag.waerhung)
-        contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.deleted))
+        contentValues.put(ID_FIELD, eintrag.getId())
+        contentValues.put(NAME_FIELD, eintrag.getName())
+        contentValues.put(BETRAG_FIELD, eintrag.getBetrag())
+        contentValues.put(DATUM_FIELD,getStringFromDate(eintrag.getDate()))
+        contentValues.put(KATEGORIE_FIELD, eintrag.getKategorie())
+        contentValues.put(WAEHRUNG_FIELD, eintrag.getWaehrung())
+        contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.getDeleted()))
         val result: Long = sqLiteDatabase.insert(TABLE_NAME, null, contentValues)
         return if (result == -1L) {
             false
@@ -214,18 +214,18 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
     fun updateNoteInDB(eintrag: Eintrag) {
         val sqLiteDatabase = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(ID_FIELD, eintrag.id)
-        contentValues.put(NAME_FIELD, eintrag.name)
-        contentValues.put(BETRAG_FIELD, eintrag.betrag)
-        contentValues.put(DATUM_FIELD,getStringFromDate(eintrag.date))
-        contentValues.put(KATEGORIE_FIELD, eintrag.kategorie)
-        contentValues.put(WAEHRUNG_FIELD, eintrag.waerhung)
-        contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.deleted))
+        contentValues.put(ID_FIELD, eintrag.getId())
+        contentValues.put(NAME_FIELD, eintrag.getName())
+        contentValues.put(BETRAG_FIELD, eintrag.getBetrag())
+        contentValues.put(DATUM_FIELD,getStringFromDate(eintrag.getDate()))
+        contentValues.put(KATEGORIE_FIELD, eintrag.getKategorie())
+        contentValues.put(WAEHRUNG_FIELD, eintrag.getWaehrung())
+        contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.getDeleted()))
         sqLiteDatabase.update(
             TABLE_NAME,
             contentValues,
             ID_FIELD + " =? ",
-            arrayOf(eintrag.id.toString())
+            arrayOf(eintrag.getId().toString())
         )
     }
 
