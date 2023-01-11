@@ -25,6 +25,7 @@ import com.example.aaaaaaaaaaaaa.ui.main.sparziel.SparzielerstellenFragment
 
 
 class MainActivity : AppCompatActivity() {
+    //Java model einfügen siehe asta klassen diagramm
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

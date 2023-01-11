@@ -6,6 +6,7 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.aaaaaaaaaaaaa.Model.Eintrag
+import org.json.JSONObject.NULL
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -185,16 +186,53 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
         }
     }
 
-    fun populateEintragListArray() {
+    fun populateEintragListArray() : List<Eintrag> {
+        val newlist: List<Eintrag> = ArrayList<Eintrag>()
         val sqLiteDatabase = this.readableDatabase
-        sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null).use { result ->
+        val currentMonth = SimpleDateFormat("MM").format(Date())
+        val currentYear = SimpleDateFormat("yyyy").format(Date())
+        val query =
+            "SELECT * FROM entries WHERE strftime('%m', date_created) = '$currentMonth'AND " +
+                    "strftime('%Y', date_created) = '$currentYear'"
+
+        sqLiteDatabase.rawQuery(query, null).use { result ->
+            if (result.count != 0) {
+                while (result.moveToNext()) {
+                    val id = result.getInt(1)
+                    val name = result.getString(2)
+                    val betrag = result.getFloat(3)
+                    val stringdatum = result.getString(4)
+                    val kategorie = result.getString(5)
+                    val waehrung = result.getString(6)
+                    val eintrag = Eintrag(
+                        id,
+                        name,
+                        betrag,
+                        getDateFromString(stringdatum),
+                        kategorie,
+                        waehrung
+                    )
+                    if (eintrag != NULL) {
+                        newlist.add(eintrag)
+                    }
+                }
+            }
+        }
+    }
+
+        val projection = arrayOf<String>("*")
+        val selection: String = "strftime('%m','"+ DATUM_FIELD+"') = strftime('%m','?')"
+        val selectionArgs = arrayOf<String>(Date().toString())
+        val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
+        sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE MONTH(" + DATUM_FIELD + ") = MONTH("+ dateFormat.format(Date()) + ")", null).use { result ->
+        //sqLiteDatabase.query(TABLE_NAME,projection,selection,selectionArgs,null,null,null).use { result ->
             if (result.count != 0) {
                 while (result.moveToNext()) {
                     val id = result.getInt(0)
                     val name = result.getString(2)
                     val betrag = result.getFloat(3)
                     val stringdatum = result.getString(4)
-                    val datum = getDateFromString(stringdatum)
+                    val datum = getDateFromStrin{g(stringdatum)
                    // val sqldate =  java.sql.Date(datum!!.time)
                     //val kategorie = result.getString(5)
                     //val waehrung = result.getString(6)
