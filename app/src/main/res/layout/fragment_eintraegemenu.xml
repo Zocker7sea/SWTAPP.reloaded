@@ -14,7 +14,7 @@
 
         <TextView
             android:id="@+id/header_eintraegeanzeigen"
-            android:layout_width="330dp"
+            android:layout_width="320dp"
             android:layout_height="45dp"
             android:text="Einträge Anzeigen"
             android:textAlignment="center"

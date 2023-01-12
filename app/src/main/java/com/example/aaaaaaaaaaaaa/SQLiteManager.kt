@@ -1,12 +1,12 @@
 package com.example.aaaaaaaaaaaaa
 
+import android.annotation.SuppressLint
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.example.aaaaaaaaaaaaa.Model.Eintrag
-import org.json.JSONObject.NULL
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -50,26 +50,6 @@ class SQLiteManager(context: Context?) :
 //        }
     }
 
-    fun insertEintrag(
-        eintrag: Eintrag
-    ): Boolean {
-        val sqLiteDatabase = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put(ID_FIELD, eintrag.getId())
-        contentValues.put(NAME_FIELD, eintrag.getName())
-        contentValues.put(BETRAG_FIELD, eintrag.getBetrag())
-        contentValues.put(DATUM_FIELD, getStringFromDate(eintrag.getDate()))
-        contentValues.put(KATEGORIE_FIELD, eintrag.getKategorie())
-        contentValues.put(WAEHRUNG_FIELD, eintrag.getWaehrung())
-        contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.getDeleted()))
-        val result = sqLiteDatabase.insert(TABLE_NAME, null, contentValues)
-        return if (result == -1L) {
-            false
-        } else {
-            true
-        }
-    }
-
     fun addEintragToDatabase(eintrag: Eintrag) : Boolean {
 
         val sqLiteDatabase = this.writableDatabase
@@ -97,6 +77,7 @@ class SQLiteManager(context: Context?) :
 }
 
 
+    @SuppressLint("Recycle")
     fun getIdFromCounter(): Int {
         var res : Int = 1
         val sqLiteDatabase = this.readableDatabase
@@ -153,48 +134,11 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
         val DB = this.readableDatabase
         return DB.rawQuery(" Select * from Eintrag",null)
     }
-
-    fun populateEintragListArrayVonBIs(von : String, bis : String) {
-        val sqLiteDatabase = this.readableDatabase
-        val projection = arrayOf<String>("*")
-        val selection: String = DATUM_FIELD + "BETWEEN =? AND =? "
-        val selectionArgs = arrayOf<String>(von,bis)
-        sqLiteDatabase.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null).use { result ->
-
-
-       // sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME, null).use { result ->
-            if (result.count != 0) {
-                while (result.moveToNext()) {
-                    val id = result.getInt(0)
-                    val name = result.getString(2)
-                    val betrag = result.getFloat(3)
-                    val stringdatum = result.getString(4)
-                    val datum = getDateFromString(stringdatum)
-                    // val sqldate =  java.sql.Date(datum!!.time)
-                    //val kategorie = result.getString(5)
-                    //val waehrung = result.getString(6)
-                    val eintrag = datum?.let {
-                        Eintrag(id, name, betrag,
-                            it
-                        )
-                    }
-                    if (eintrag != null) {
-                        Eintrag.eintragArrayList.add(eintrag)
-                    }
-                }
-            }
-        }
-    }
-
-    fun populateEintragListArray() : List<Eintrag> {
-        val newlist: List<Eintrag> = ArrayList<Eintrag>()
-        val sqLiteDatabase = this.readableDatabase
-        val currentMonth = SimpleDateFormat("MM").format(Date())
-        val currentYear = SimpleDateFormat("yyyy").format(Date())
+    fun populateEintragListArrayVon(von : String) : ArrayList<Eintrag>  {
+        val newlist = ArrayList<Eintrag>()
+        val sqLiteDatabase = this.writableDatabase
         val query =
-            "SELECT * FROM entries WHERE strftime('%m', date_created) = '$currentMonth'AND " +
-                    "strftime('%Y', date_created) = '$currentYear'"
-
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + DATUM_FIELD + " >= '"+von+"'"//" ORDER BY "+ DATUM_FIELD + " DESC"
         sqLiteDatabase.rawQuery(query, null).use { result ->
             if (result.count != 0) {
                 while (result.moveToNext()) {
@@ -204,68 +148,165 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
                     val stringdatum = result.getString(4)
                     val kategorie = result.getString(5)
                     val waehrung = result.getString(6)
-                    val eintrag = Eintrag(
-                        id,
-                        name,
-                        betrag,
-                        getDateFromString(stringdatum),
-                        kategorie,
-                        waehrung
-                    )
-                    if (eintrag != NULL) {
-                        newlist.add(eintrag)
-                    }
-                }
-            }
-        }
-    }
-
-        val projection = arrayOf<String>("*")
-        val selection: String = "strftime('%m','"+ DATUM_FIELD+"') = strftime('%m','?')"
-        val selectionArgs = arrayOf<String>(Date().toString())
-        val dateFormat: DateFormat = SimpleDateFormat("yyyy/MM/dd")
-        sqLiteDatabase.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE MONTH(" + DATUM_FIELD + ") = MONTH("+ dateFormat.format(Date()) + ")", null).use { result ->
-        //sqLiteDatabase.query(TABLE_NAME,projection,selection,selectionArgs,null,null,null).use { result ->
-            if (result.count != 0) {
-                while (result.moveToNext()) {
-                    val id = result.getInt(0)
-                    val name = result.getString(2)
-                    val betrag = result.getFloat(3)
-                    val stringdatum = result.getString(4)
-                    val datum = getDateFromStrin{g(stringdatum)
-                   // val sqldate =  java.sql.Date(datum!!.time)
-                    //val kategorie = result.getString(5)
-                    //val waehrung = result.getString(6)
-                    val eintrag = datum?.let {
-                        Eintrag(id, name, betrag,
-                            it
+                    val eintrag = getDateFromString(stringdatum)?.let {
+                        Eintrag(
+                            id,
+                            name,
+                            betrag,
+                            it,
+                            // kategorie,
+                            // waehrung
                         )
                     }
                     if (eintrag != null) {
-                        Eintrag.eintragArrayList.add(eintrag)
+                        newlist.add(eintrag)
+                    } else {
+                        println("eintrag is null")
                     }
                 }
             }
         }
+        return newlist
+    }
+    fun populateEintragListArrayBis(bis : String) : ArrayList<Eintrag>  {
+        val newlist = ArrayList<Eintrag>()
+        val sqLiteDatabase = this.writableDatabase
+        //val dateFormat = SimpleDateFormat("dd.MM.yyyy")
+        //val startDate = dateFormat.format(von)
+        //val query2= "SELECT * FROM "+ TABLE_NAME + " WHERE " + DATUM_FIELD + " > ?"
+        //val params = arrayOf<String>(bis)
+        //sqLiteDatabase.rawQuery(query2, null).use { result ->
+        val query =
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + DATUM_FIELD + " <= '"+bis+"' ORDER BY "+ DATUM_FIELD + " DESC"
+        sqLiteDatabase.rawQuery(query, null).use { result ->
+            if (result.count != 0) {
+                while (result.moveToNext()) {
+                    val id = result.getInt(1)
+                    val name = result.getString(2)
+                    val betrag = result.getFloat(3)
+                    val stringdatum = result.getString(4)
+                    val kategorie = result.getString(5)
+                    val waehrung = result.getString(6)
+                    val eintrag = getDateFromString(stringdatum)?.let {
+                        Eintrag(
+                            id,
+                            name,
+                            betrag,
+                            it,
+                            // kategorie,
+                            // waehrung
+                        )
+                    }
+                    if (eintrag != null) {
+                        newlist.add(eintrag)
+                    } else {
+                        println("eintrag is null")
+                    }
+                }
+            }
+        }
+        return newlist
     }
 
-    fun updateNoteInDB(eintrag: Eintrag) {
+    fun populateEintragListArrayVonBIs(von : String, bis : String) : ArrayList<Eintrag>  {
+        val newlist = ArrayList<Eintrag>()
         val sqLiteDatabase = this.writableDatabase
-        val contentValues = ContentValues()
-        contentValues.put(ID_FIELD, eintrag.getId())
-        contentValues.put(NAME_FIELD, eintrag.getName())
-        contentValues.put(BETRAG_FIELD, eintrag.getBetrag())
-        contentValues.put(DATUM_FIELD,getStringFromDate(eintrag.getDate()))
-        contentValues.put(KATEGORIE_FIELD, eintrag.getKategorie())
-        contentValues.put(WAEHRUNG_FIELD, eintrag.getWaehrung())
-        contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.getDeleted()))
-        sqLiteDatabase.update(
-            TABLE_NAME,
-            contentValues,
-            ID_FIELD + " =? ",
-            arrayOf(eintrag.getId().toString())
-        )
+        //select * from eintrag where datum >= '09.01.2023'  and datum <= '14.01.2023'
+        val query =
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + DATUM_FIELD + " >= '"+von+"' and " + DATUM_FIELD + " <= '"+bis+"'"// ORDER BY "+ DATUM_FIELD + " DESC"
+        sqLiteDatabase.rawQuery(query, null).use { result ->
+            if (result.count != 0) {
+                while (result.moveToNext()) {
+                    val id = result.getInt(1)
+                    val name = result.getString(2)
+                    val betrag = result.getFloat(3)
+                    val stringdatum = result.getString(4)
+                    val kategorie = result.getString(5)
+                    val waehrung = result.getString(6)
+                    val eintrag = getDateFromString(stringdatum)?.let {
+                        Eintrag(
+                            id,
+                            name,
+                            betrag,
+                            it,
+                            // kategorie,
+                            // waehrung
+                        )
+                    }
+                    if (eintrag != null) {
+                        newlist.add(eintrag)
+                    } else {
+                        println("eintrag is null")
+                    }
+                }
+            }
+        }
+        return newlist
     }
+
+    fun populateEintragListArray() : ArrayList<Eintrag> {
+        val newlist: ArrayList<Eintrag> = ArrayList<Eintrag>()
+        val sqLiteDatabase = this.readableDatabase
+        val cal : Calendar = Calendar.getInstance()
+        val year = cal.get(Calendar.YEAR)
+        val month = cal[Calendar.MONTH]
+        cal.set(year,month,1)
+        val start = cal.time
+        cal.set(year,month ,31)
+        val end = cal.time
+
+        val dateFormat = SimpleDateFormat("dd-MM-yyy")
+        val startDate = dateFormat.format(start)
+        println("startDate time is " + startDate)
+        val endDate = dateFormat.format(end)
+        println("endDate time is " + endDate)
+
+        val querynormal = "SELECT * FROM " + TABLE_NAME
+        val query3 = "SELECT * FROM "+ TABLE_NAME+" WHERE "+ DATUM_FIELD + " >= '" + startDate + "' AND " + DATUM_FIELD + "<= '"+endDate+"'"// ORDER BY "+ DATUM_FIELD + " DESC"
+
+        sqLiteDatabase.rawQuery(query3,null).use { result ->
+
+//
+//        val currentMonth =  SimpleDateFormat("MM").format(Date()) //Date()//
+//        val currentYear = SimpleDateFormat("yyyy").format(Date())
+//        println("/n current month " + currentMonth )
+//        println("/n current year " + currentYear )
+//        val querynormal = "SELECT * FROM " + TABLE_NAME
+//
+//        val query =
+//            "SELECT * FROM " + TABLE_NAME+ " WHERE strftime('%m','2023-01-10') = '$currentMonth'"
+//        sqLiteDatabase.rawQuery(query, null).use { result ->
+            println("hier-------------------------")
+            if (result.count != 0) {
+                while (result.moveToNext()) {
+                    val id = result.getInt(1)
+                    val name = result.getString(2)
+                    val betrag = result.getFloat(3)
+                    val stringdatum = result.getString(4)
+                    val kategorie = result.getString(5)
+                    val waehrung = result.getString(6)
+                    val eintrag = getDateFromString(stringdatum)?.let {
+                        Eintrag(
+                            id,
+                            name,
+                            betrag,
+                            it,
+                           // kategorie,
+                           // waehrung
+                        )
+                    }
+                    if (eintrag != null) {
+                        newlist.add(eintrag)
+                    } else {
+                        println("eintrag is null")
+                    }
+                }
+            }
+        }
+        return newlist
+    }
+
+
 
     private fun getStringFromDate(date: Date?): String? {
         return if (date == null) null else dateFormat.format(date)

@@ -115,22 +115,22 @@ open class Eintrag {
         return this.deleted
     }
 
-    companion object {
-        var eintragArrayList = ArrayList<Eintrag>()
-
-        fun getEintragForId(passedEintragId: Int): Eintrag? {
-            for (eintrag in eintragArrayList) {
-                if (eintrag.id == passedEintragId) return eintrag
-            }
-            return null
-        }
-
-        fun nonDeletedEintrag(): ArrayList<Eintrag> {
-            val nonDeleted = ArrayList<Eintrag>()
-            for (eintrag in eintragArrayList) {
-                if (eintrag.deleted == null) nonDeleted.add(eintrag)
-            }
-            return nonDeleted
-        }
-    }
+//    companion object {
+//        var eintragArrayList = ArrayList<Eintrag>()
+//
+//        fun getEintragForId(passedEintragId: Int): Eintrag? {
+//            for (eintrag in eintragArrayList) {
+//                if (eintrag.id == passedEintragId) return eintrag
+//            }
+//            return null
+//        }
+//
+////        fun nonDeletedEintrag(): ArrayList<Eintrag> {
+////            val nonDeleted = ArrayList<Eintrag>()
+////            for (eintrag in eintragArrayList) {
+////                if (eintrag.deleted == null) nonDeleted.add(eintrag)
+////            }
+////            return nonDeleted
+////        }
+//    }
 }

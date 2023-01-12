@@ -51,6 +51,7 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
                 DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
                     // When the date is selected, update the dateTextView with the selected date
                     datum.text = "$selectedDay.${selectedMonth + 1}.$selectedYear"
+                    //datum.text = "$selectedYear-${selectedMonth + 1}-$selectedDay"//         .${selectedMonth + 1}.$selectedYear"
                 },
                 year,
                 month,
@@ -106,7 +107,7 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
                 if (checkinsertdata) {
                     //wenn es geklappt hat, custom toast aufrufen und den eintrag in die eintrasliste hinzufuegen
                     toast.show()
-                    Eintrag.eintragArrayList.add(newEintrag)
+                    //Eintrag.eintragArrayList.add(newEintrag)
                     //break
                     //nach erfolgreichen eintragen auf haupt menu?
                     //Toast.makeText(activity,"New Entry Inserted", Toast.LENGTH_SHORT).show()
@@ -123,7 +124,7 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
     }
 
     fun getCurrentDate(): String{
-        val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy")
+        val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd")
         val currentDate = Date()
         return dateFormat.format(currentDate)
     }
