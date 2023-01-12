@@ -33,9 +33,7 @@ class SQLiteManager(context: Context?) :
             .append(KATEGORIE_FIELD)
             .append(" TEXT, ")
             .append(WAEHRUNG_FIELD)
-            .append(" TEXT, ")
-            .append(DELETED_FIELD)
-            .append(" DATE)")
+            .append(" TEXT)")
         sqLiteDatabase.execSQL(sql.toString())
     }
 
@@ -60,7 +58,6 @@ class SQLiteManager(context: Context?) :
         contentValues.put(DATUM_FIELD,getStringFromDate(eintrag.getDate()))
         contentValues.put(KATEGORIE_FIELD, eintrag.getKategorie())
         contentValues.put(WAEHRUNG_FIELD, eintrag.getWaehrung())
-        contentValues.put(DELETED_FIELD, getStringFromDate(eintrag.getDeleted()))
         val result: Long = sqLiteDatabase.insert(TABLE_NAME, null, contentValues)
         return if (result == -1L) {
             false
@@ -138,7 +135,7 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
         val newlist = ArrayList<Eintrag>()
         val sqLiteDatabase = this.writableDatabase
         val query =
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + DATUM_FIELD + " >= '"+von+"'"//" ORDER BY "+ DATUM_FIELD + " DESC"
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + DATUM_FIELD + " >= '"+von+"' ORDER BY "+ DATUM_FIELD + " ASC"
         sqLiteDatabase.rawQuery(query, null).use { result ->
             if (result.count != 0) {
                 while (result.moveToNext()) {
@@ -177,7 +174,7 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
         //val params = arrayOf<String>(bis)
         //sqLiteDatabase.rawQuery(query2, null).use { result ->
         val query =
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + DATUM_FIELD + " <= '"+bis+"' ORDER BY "+ DATUM_FIELD + " DESC"
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + DATUM_FIELD + " <= '"+bis+"' ORDER BY "+ DATUM_FIELD + " ASC"
         sqLiteDatabase.rawQuery(query, null).use { result ->
             if (result.count != 0) {
                 while (result.moveToNext()) {
@@ -213,7 +210,7 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
         val sqLiteDatabase = this.writableDatabase
         //select * from eintrag where datum >= '09.01.2023'  and datum <= '14.01.2023'
         val query =
-            "SELECT * FROM " + TABLE_NAME + " WHERE " + DATUM_FIELD + " >= '"+von+"' and " + DATUM_FIELD + " <= '"+bis+"'"// ORDER BY "+ DATUM_FIELD + " DESC"
+            "SELECT * FROM " + TABLE_NAME + " WHERE " + DATUM_FIELD + " >= '"+von+"' and " + DATUM_FIELD + " <= '"+bis+"'ORDER BY "+ DATUM_FIELD + " ASC"
         sqLiteDatabase.rawQuery(query, null).use { result ->
             if (result.count != 0) {
                 while (result.moveToNext()) {
@@ -254,29 +251,11 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
         val start = cal.time
         cal.set(year,month ,31)
         val end = cal.time
-
-        val dateFormat = SimpleDateFormat("dd-MM-yyy")
+        val dateFormat = SimpleDateFormat("dd.MM.yyy")
         val startDate = dateFormat.format(start)
-        println("startDate time is " + startDate)
         val endDate = dateFormat.format(end)
-        println("endDate time is " + endDate)
-
-        val querynormal = "SELECT * FROM " + TABLE_NAME
-        val query3 = "SELECT * FROM "+ TABLE_NAME+" WHERE "+ DATUM_FIELD + " >= '" + startDate + "' AND " + DATUM_FIELD + "<= '"+endDate+"'"// ORDER BY "+ DATUM_FIELD + " DESC"
-
+        val query3 = "SELECT * FROM "+ TABLE_NAME+" WHERE "+ DATUM_FIELD + " >= '" + startDate + "' AND " + DATUM_FIELD + "<= '"+endDate+"' ORDER BY "+ DATUM_FIELD + " ASC"
         sqLiteDatabase.rawQuery(query3,null).use { result ->
-
-//
-//        val currentMonth =  SimpleDateFormat("MM").format(Date()) //Date()//
-//        val currentYear = SimpleDateFormat("yyyy").format(Date())
-//        println("/n current month " + currentMonth )
-//        println("/n current year " + currentYear )
-//        val querynormal = "SELECT * FROM " + TABLE_NAME
-//
-//        val query =
-//            "SELECT * FROM " + TABLE_NAME+ " WHERE strftime('%m','2023-01-10') = '$currentMonth'"
-//        sqLiteDatabase.rawQuery(query, null).use { result ->
-            println("hier-------------------------")
             if (result.count != 0) {
                 while (result.moveToNext()) {
                     val id = result.getInt(1)
@@ -291,8 +270,8 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
                             name,
                             betrag,
                             it,
-                           // kategorie,
-                           // waehrung
+                            kategorie,
+                            waehrung
                         )
                     }
                     if (eintrag != null) {
@@ -334,7 +313,6 @@ fun getKategorieForNameETC(namee : String, betrag : Float, datum : Date): String
         private const val DATUM_FIELD = "datum"
         private const val KATEGORIE_FIELD = "kategorie"
         private const val WAEHRUNG_FIELD = "waehrung"
-        private const val DELETED_FIELD = "deleted"
 
 
         val dateFormat: DateFormat = SimpleDateFormat("dd.MM.yyyy")

@@ -51,7 +51,7 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
                 DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
                     // When the date is selected, update the dateTextView with the selected date
                     datum.text = "$selectedDay.${selectedMonth + 1}.$selectedYear"
-                    //datum.text = "$selectedYear-${selectedMonth + 1}-$selectedDay"//         .${selectedMonth + 1}.$selectedYear"
+                    datum.text = convertDate(datum.text.toString())
                 },
                 year,
                 month,
@@ -122,7 +122,13 @@ class EinnahmenhinzufuegenFragment : Fragment(R.layout.fragment_einnahmenhinzufu
         }
 
     }
-
+    private fun convertDate(date: String): String {
+        val dateParts = date.split(".")
+        val day = String.format("%02d", dateParts[0].toInt())
+        val month = String.format("%02d", dateParts[1].toInt())
+        val year = dateParts[2]
+        return "$day.$month.$year"
+    }
     fun getCurrentDate(): String{
         val dateFormat: DateFormat = SimpleDateFormat("yyyy-MM-dd")
         val currentDate = Date()

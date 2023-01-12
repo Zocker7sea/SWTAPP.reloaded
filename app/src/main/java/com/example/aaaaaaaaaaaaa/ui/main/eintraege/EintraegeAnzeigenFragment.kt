@@ -45,14 +45,19 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
         setOnClickListener()
         searchbtn.setOnClickListener {
             if(!datumVon.text.isEmpty() && !datumBis.text.isEmpty()) {
-                println("Datumvon ist " + datumVon.text.toString())
+                println("Datumvon ist " + convertDate(datumVon.text.toString()))
                 println("Datumbis ist " + datumBis.text.toString())
-                newlist = sqLiteManager.populateEintragListArrayVonBIs(von = datumVon.text.toString(), bis = datumBis.text.toString())
+                newlist = sqLiteManager.populateEintragListArrayVonBIs(von = convertDate(datumVon.text.toString()), bis = convertDate(datumBis.text.toString()))
             } else if(datumVon.text.isEmpty() && !datumBis.text.isEmpty()) {
-                newlist = sqLiteManager.populateEintragListArrayBis(bis = datumBis.text.toString())
+                println("Datumbis ist " + convertDate(datumBis.text.toString()))
+                newlist = sqLiteManager.populateEintragListArrayBis(bis = convertDate(datumBis.text.toString()))
             } else if(!datumVon.text.isEmpty() && datumBis.text.isEmpty()) {
-                newlist = sqLiteManager.populateEintragListArrayVon(von = datumVon.text.toString())
+                println(convertDate(datumVon.text.toString()))
+
+                println("converted date " + convertDate(datumVon.text.toString()))
+                newlist = sqLiteManager.populateEintragListArrayVon(von = convertDate(datumVon.text.toString()))
             } else {
+                println("both empty")
                 newlist = sqLiteManager.populateEintragListArray()
             }
             setEintragAdapter()
@@ -64,8 +69,8 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
             // Get the current date
             val calendar = Calendar.getInstance()
             val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
-            val day =  calendar.get(Calendar.DAY_OF_MONTH)
+            val month = (calendar.get(Calendar.MONTH))
+            val day =  (calendar.get(Calendar.DAY_OF_MONTH))
 
             // Create a new DatePickerDialog and show it
             val datePickerDialog = DatePickerDialog(
@@ -73,12 +78,16 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
                 DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
                     // When the date is selected, update the dateTextView with the selected date
                     datumVon.text = "$selectedDay.${selectedMonth + 1}.$selectedYear"
+                    datumVon.text = convertDate(datumVon.text.toString())
                 },
                 year,
-                month,
+               month,
                 day
             )
             datePickerDialog.show()
+
+            //println("month is " + month)
+            //println("day is " + day)
             //Toast.makeText(context, "what date " + datumVon.text.toString(), Toast.LENGTH_SHORT).show()
             //newlist.clear()
 //            if(datumBis.text.isEmpty()) {
@@ -105,6 +114,7 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
                 DatePickerDialog.OnDateSetListener { _, selectedYear, selectedMonth, selectedDay ->
                     // When the date is selected, update the dateTextView with the selected date
                     datumBis.text = "$selectedDay.${selectedMonth + 1}.$selectedYear"
+                    datumBis.text = convertDate(datumBis.text.toString())
                 },
                 year,
                 month,
@@ -142,6 +152,13 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
         eintragAdapter = EintragAdapter(context, newlist)
         eintragListView!!.adapter = eintragAdapter
     }
+    private fun convertDate(date: String): String {
+        val dateParts = date.split(".")
+        val day = String.format("%02d", dateParts[0].toInt())
+        val month = String.format("%02d", dateParts[1].toInt())
+        val year = dateParts[2]
+        return "$day.$month.$year"
+    }
 
     private fun setOnClickListener() {
         val sqLiteManager = SQLiteManager.instanceOfDatabase(context)
@@ -152,8 +169,8 @@ class EintraegeAnzeigenFragment : Fragment(R.layout.fragment_eintraege_anzeigen)
                 val name = get!!.getName()
                 val betrag = get.getBetrag()
                 val datum = get.getDate()
-                val kategorie = sqLiteManager!!.getKategorieForNameETC(name, betrag, datum)
-                val waehrung = sqLiteManager.getWaehrunFromNameETC(name, betrag, datum)
+                val kategorie = get.getKategorie()//sqLiteManager!!.getKategorieForNameETC(name, betrag, datum)
+                val waehrung = get.getWaehrung()//sqLiteManager.getWaehrunFromNameETC(name, betrag, datum)
                 val newDatum = sdf.format(datum)
                 eintragAdapter.notifyDataSetChanged()
                 activity?.supportFragmentManager?.beginTransaction()?.replace(
