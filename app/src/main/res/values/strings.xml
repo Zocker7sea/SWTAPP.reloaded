@@ -1,7 +1,5 @@
 <resources>
-    <string name="app_name">Aaaaaaaaaaaaa</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name">Softwaretechnik1</string>
     <string-array name="waehrung">
         <item>€</item>
         <item>$</item>

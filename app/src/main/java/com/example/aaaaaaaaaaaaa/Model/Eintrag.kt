@@ -67,7 +67,7 @@ open class Eintrag {
         this.betrag = betrag
     }
 
-    fun setDate(date: Date) {
+    fun setDate(date: java.util.Date) {
         this.date = date
     }
     fun getDate(): java.util.Date {
